@@ -3,179 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura Interativa: A Floresta Misteriosa</title>
-    <style>
-        /* Estilização Geral (CSS) */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a2e;
-            color: #e0e0e0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            background-color: #16213e;
-            max-width: 600px;
-            width: 100%;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            border: 1px solid #0f3460;
-        }
-
-        h1 {
-            color: #e94560;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .story-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            min-height: 80px;
-        }
-
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .btn {
-            background-color: #0f3460;
-            color: #ffffff;
-            border: 2px solid #e94560;
-            padding: 12px 20px;
-            font-size: 1rem;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-
-        .btn:hover {
-            background-color: #e94560;
-            color: #fff;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-    </style>
+    <title>Aventura dos Algoritmos</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="container">
-        <h1>A Floresta Misteriosa</h1>
-        <div id="text" class="story-text">Carregando história...</div>
-        <div id="options" class="options-container"></div>
-    </div>
+    <header>
+        <h1>⚔️ Aventura dos Algoritmos</h1>
+        <p>Use sua lógica para completar a missão!</p>
+    </header>
 
-    <script>
-        // Lógica do Jogo (JavaScript / Algoritmos)
-        
-        // Estrutura de dados representando a árvore de decisões do jogo
-        const storyNodes = [
-            {
-                id: 1,
-                text: "Você acorda em uma floresta densa e desconhecida. À sua frente, há um caminho iluminado por pirilampos e, à direita, uma entrada para uma caverna escura.",
-                options: [
-                    { text: "Seguir pelo caminho iluminado", nextText: 2 },
-                    { text: "Entrar na caverna escura", nextText: 3 }
-                ]
-            },
-            {
-                id: 2,
-                text: "O caminho iluminado leva você até uma ponte antiga sobre um rio agitado. Do outro lado, há uma vila. A ponte parece frágil.",
-                options: [
-                    { text: "Atravessar a ponte cuidadosamente", nextText: 4 },
-                    { text: "Procurar outro lugar para atravessar o rio", nextText: 5 }
-                ]
-            },
-            {
-                id: 3,
-                text: "Dentro da caverna, você encontra uma tocha acesa na parede e ouve um rugido ecoando ao fundo.",
-                options: [
-                    { text: "Pegar a tocha e investigar o rugido", nextText: 6 },
-                    { text: "Recuar e voltar para a floresta", nextText: 1 }
-                ]
-            },
-            {
-                id: 4,
-                text: "Você atravessa a ponte com sucesso e chega à vila em segurança! Os moradores o recebem e oferecem abrigo. Vitória!",
-                options: [
-                    { text: "Jogar novamente", nextText: 1 }
-                ]
-            },
-            {
-                id: 5,
-                text: "Enquanto procura uma travessia segura, a noite cai e você se perde completamente na floresta. Fim de jogo.",
-                options: [
-                    { text: "Tentar novamente", nextText: 1 }
-                ]
-            },
-            {
-                id: 6,
-                text: "Com a tocha, você assusta uma besta adormecida e descobre um baú cheio de tesouros escondido! Vitória!",
-                options: [
-                    { text: "Jogar novamente", nextText: 1 }
-                ]
-            }
-        ];
+    <main class="game">
 
-        // Referências aos elementos do HTML
-        const textElement = document.getElementById('text');
-        const optionsElement = document.getElementById('options');
+        <section class="status">
+            <div>❤️ Vidas: <span id="vidas">3</span></div>
+            <div>⭐ Pontos: <span id="pontos">0</span></div>
+            <div>🏆 Fase: <span id="fase">1</span>/5</div>
+        </section>
 
-        // Função para iniciar ou reiniciar o jogo
-        function startGame() {
-            showStoryNode(1);
-        }
+        <section class="card">
+            <h2 id="titulo">A Floresta dos Algoritmos</h2>
 
-        // Algoritmo para exibir o passo atual da história
-        function showStoryNode(storyNodeIndex) {
-            // Busca o nó da história pelo ID
-            const storyNode = storyNodes.find(node => node.id === storyNodeIndex);
-            
-            // Atualiza o texto na tela
-            textElement.innerText = storyNode.text;
+            <p id="historia">
+                Você entrou em uma floresta misteriosa. Para encontrar o
+                tesouro, precisa resolver desafios usando lógica e algoritmos.
+            </p>
 
-            // Limpa os botões anteriores
-            while (optionsElement.firstChild) {
-                optionsElement.removeChild(optionsElement.firstChild);
-            }
+            <div id="desafio">
+                <h3>Desafio 1</h3>
 
-            // Cria um novo botão para cada opção disponível
-            storyNode.options.forEach(option => {
-                const button = document.createElement('button');
-                button.innerText = option.text;
-                button.classList.add('btn');
-                button.addEventListener('click', () => selectOption(option));
-                optionsElement.appendChild(button);
-            });
-        }
+                <p>
+                    Qual sequência representa melhor um algoritmo para
+                    fazer um sanduíche?
+                </p>
 
-        // Função acionada ao clicar em uma opção
-        function selectOption(option) {
-            const nextStoryNodeId = option.nextText;
-            showStoryNode(nextStoryNodeId);
-        }
+                <button onclick="responder(1)">A) Comer → Fazer → Pegar ingredientes</button>
+                <button onclick="responder(2)">B) Pegar ingredientes → Montar → Comer</button>
+                <button onclick="responder(3)">C) Comer → Montar → Comprar ingredientes</button>
+            </div>
 
-        // Inicializa o jogo ao carregar a página
-        startGame();
-    </script>
+            <p id="mensagem"></p>
+
+            <button id="proximo" class="proximo" onclick="proximaFase()">
+                Próximo desafio ➜
+            </button>
+        </section>
+
+        <section class="regras">
+            <h2>📜 Como jogar</h2>
+            <p>
+                Resolva os desafios escolhendo uma alternativa.
+                Cada resposta correta vale <strong>10 pontos</strong>.
+                Você tem 3 vidas para completar a aventura.
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Projeto educacional sobre Algoritmos 💻</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
